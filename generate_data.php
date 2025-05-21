@@ -175,7 +175,7 @@ while ($user_id_counter <= MIN_USERS) {
     // --- Benzersiz Email Oluşturma ---
     // E-posta adresinin ön kısmı için isim parçalarını kullan, alfanumerik karakterleri temizle
     $email_prefix_base = strtolower(preg_replace('/[^a-z0-9]/', '', $name_first_part . $name_last_part));
-    // Benzersizliği garantilemek için doğrudan user_id_counter'ı e-postanın bir parçası yapıyoruz
+    // Benzersizliği garantilemek için doğrudan user_id_counter'ı e-posta'nın bir parçası yapıyoruz
     // Bu yöntem, her zaman benzersiz bir e-posta adresi üretecektir çünkü user_id_counter benzersizdir.
     $email = $email_prefix_base . $user_id_counter . "@example.com";
 
@@ -200,8 +200,22 @@ while ($user_id_counter <= MIN_USERS) {
 // --- 3. Generate ARTISTS data ---
 fwrite($fp, "\n-- ARTISTS Data --\n");
 $artist_id_counter = 1;
+$used_artist_names = [];
 while ($artist_id_counter <= MIN_ARTISTS) {
-    $name = $full_names[array_rand($full_names)];
+    // Sanatçı adı için rastgele bir tam isim seçiyoruz
+    $base_artist_name_candidate = $full_names[array_rand($full_names)]; // Geçici olarak isim adayı
+
+    $artist_name_suffix = 0;
+    $current_artist_name_to_use = $base_artist_name_candidate; // Kullanılacak nihai isim
+
+    // Benzersiz bir sanatçı adı bulunana kadar döngü
+    while (in_array($current_artist_name_to_use, $used_artist_names)) {
+        $artist_name_suffix++;
+        $current_artist_name_to_use = $base_artist_name_candidate . ' ' . $artist_name_suffix;
+    }
+    $used_artist_names[] = $current_artist_name_to_use; // Benzersiz 
+
+    
     $genre = $input_genres[array_rand($input_genres)];
     $date_joined = generate_random_date('2005-01-01', '2022-12-31');
     $total_num_music = rand(5, 200);
@@ -212,7 +226,7 @@ while ($artist_id_counter <= MIN_ARTISTS) {
     $image_url = "https://picsum.photos/id/" . rand(101, 200) . "/150/150";
 
     fwrite($fp, "INSERT INTO ARTISTS (artist_id, name, genre, date_joined, total_num_music, total_albums, listeners, bio, country_id, image) VALUES (");
-    fwrite($fp, "{$artist_id_counter}, '{$name}', '{$genre}', '{$date_joined}', {$total_num_music}, {$total_albums}, {$listeners}, '{$bio}', {$country_id}, '{$image_url}');\n");
+    fwrite($fp, "{$artist_id_counter}, '{$current_artist_name_to_use}', '{$genre}', '{$date_joined}', {$total_num_music}, {$total_albums}, {$listeners}, '{$bio}', {$country_id}, '{$image_url}');\n");
     $artist_ids[] = $artist_id_counter;
     $artist_id_counter++;
 }
@@ -249,10 +263,10 @@ while ($song_id_counter <= MIN_SONGS) {
     $duration = rand(120, 480); // Duration in seconds (2 to 8 minutes)
     $genre = $input_genres[array_rand($input_genres)];
     $release_date = generate_random_date('2008-01-01', '2024-05-01'); // Can be same as album or slightly later
-    $rank = rand(1, 1000); // Higher rank is more popular
+    $popularity_rank = rand(1, 1000); // Higher rank is more popular
 
-    fwrite($fp, "INSERT INTO SONGS (song_id, album_id, title, duration, genre, release_date, rank, image) VALUES (");
-    fwrite($fp, "{$song_id_counter}, {$album_id}, '{$title}', {$duration}, '{$genre}', '{$release_date}', {$rank}, '{$song_image_url}');\n");
+    fwrite($fp, "INSERT INTO SONGS (song_id, album_id, title, duration, genre, release_date, popularity_rank, image) VALUES (");
+    fwrite($fp, "{$song_id_counter}, {$album_id}, '{$title}', {$duration}, '{$genre}', '{$release_date}', {$popularity_rank}, '{$song_image_url}');\n");
     $song_ids[] = $song_id_counter;
     $song_id_counter++;
 }
