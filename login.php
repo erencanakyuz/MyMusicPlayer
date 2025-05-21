@@ -1,31 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login to Music Player</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container" style="max-width: 400px; margin-top: 50px;">
-        <h1>User Login</h1>
-        <form action="login.php" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+<?php
+// login.php
+// Student Name: [Your Name]
+// Student ID: [Your Student ID]
+// Description: Handles user login, authenticates against the database, and sets up session variables.
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+session_start();
+require_once 'config.php'; // Include your database configuration
 
-            <button type="submit">Login</button>
-            <?php
-            // Display error message if present (from login.php redirect)
-            session_start();
-            if (isset($_SESSION['login_error'])) {
-                echo '<p class="error-message">' . htmlspecialchars($_SESSION['login_error']) . '</p>';
-                unset($_SESSION['login_error']); // Clear the error after displaying
-            }
-            ?>
-        </form>
-    </div>
-</body>
-</html>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = sanitize_input($conn, $_POST['username']);
+    $password = $_POST['password']; // Password will be hashed, don't sanitize with htmlspecialchars for direct comparison
+
+    // Prepare SQL statement to prevent SQL injection (as demonstrated in lecture examples)
+    $stmt = $conn->prepare("SELECT user_id, name, username, password, country_id FROM USERS WHERE username = ?");
+    
+    // Check if prepare was successful
+    if ($stmt === false) {
+        $_SESSION['login_error'] = "Database error: " . $conn->error;
+        header("Location: login.html");
+        exit();
+    }
+
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        // Verify the password
+        if (password_verify($password, $user['password'])) {
+            // Password is correct, set session variables
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['country_id'] = $user['country_id'];
+
+            // Update last_login time
+            $update_stmt = $conn->prepare("UPDATE USERS SET last_login = NOW() WHERE user_id = ?");
+            $update_stmt->bind_param("i", $user['user_id']);
+            $update_stmt->execute();
+            $update_stmt->close();
+
+            header("Location: homepage.php"); // Redirect to the homepage
+            exit();
+        } else {
+            $_SESSION['login_error'] = "Invalid password.";
+            header("Location: login.html");
+            exit();
+        }
+    } else {
+        $_SESSION['login_error'] = "Username not found.";
+        header("Location: login.html");
+        exit();
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+?>
