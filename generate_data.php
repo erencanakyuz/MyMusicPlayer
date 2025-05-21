@@ -290,19 +290,40 @@ while ($playlist_id_counter <= MIN_PLAYLISTS) {
 // --- 7. Generate PLAYLIST_SONGS data ---
 fwrite($fp, "\n-- PLAYLIST_SONGS Data --\n");
 $playlistsong_id_counter = 1;
-// Ensure each playlist has at least one song and distribute songs among playlists
-for ($i = 0; $i < MIN_PLAYLIST_SONGS; $i++) {
+$used_playlist_song_combinations = []; //benzersiz kombinasyonları saklamak için
+
+$attempts = 0; // Sonsuz döngüyü önlemek için deneme sayacı
+$max_attempts_per_song = 50; // Her şarkı için maksimum deneme
+
+while ($playlistsong_id_counter <= MIN_PLAYLIST_SONGS) {
     $playlist_id = $playlist_ids[array_rand($playlist_ids)];
     $song_id = $song_ids[array_rand($song_ids)];
+
+    // Kombinasyonu benzersiz bir anahtara dönüştür (örn: "354_426")
+    $combination_key = "{$playlist_id}-{$song_id}";
+
+    // Bu kombinasyon zaten kullanıldıysa, yeni bir tane bulana kadar devam et
+    // Veya maksimum deneme sayısına ulaştıysak döngüyü kır (tüm kombinasyonlar tükenmiş olabilir)
+    if (in_array($combination_key, $used_playlist_song_combinations)) {
+        $attempts++;
+        if ($attempts >= $max_attempts_per_song * MIN_PLAYLIST_SONGS) { // Çok fazla deneme yapıldıysa döngüyü kır
+            echo "\nWARNING: Could not generate enough unique PLAYLIST_SONGS combinations. Generated " . ($playlistsong_id_counter - 1) . " unique entries.\n";
+            break;
+        }
+        continue; // Yeni bir rastgele kombinasyon dene
+    }
+
+    // Benzersiz kombinasyonu bulduk, ekle
+    $used_playlist_song_combinations[] = $combination_key;
+    $attempts = 0; // Başarılı bir eklemeden sonra deneme sayacını sıfırla
+
     $date_added = generate_random_date('2023-01-01', '2024-05-20');
 
-    // Prevent duplicate song in the same playlist (basic check for generation)
-    // For a real app, this would be handled with a unique constraint or logic.
-    // Here, just generate enough that it meets the minimum, duplicates are fine for this script's purpose if they occur.
     fwrite($fp, "INSERT INTO PLAYLIST_SONGS (playlistsong_id, playlist_id, song_id, date_added) VALUES (");
     fwrite($fp, "{$playlistsong_id_counter}, {$playlist_id}, {$song_id}, '{$date_added}');\n");
     $playlistsong_id_counter++;
 }
+
 
 // --- 8. Generate PLAY_HISTORY data ---
 fwrite($fp, "\n-- PLAY_HISTORY Data --\n");
