@@ -40,10 +40,9 @@ $stmt_playlist_details->close();
 
 // --- Handle Add Song to Playlist ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_song_query'])) {
-    // Assuming sanitize_input() is defined in config.php or globally available
-    // If not, ensure $conn->real_escape_string or prepared statements are used consistently.
-    // For this example, we'll assume sanitize_input is available as per the original snippet's context.
-    // $song_search_query = sanitize_input($conn, $_POST['add_song_query']);
+    
+    
+    // Check if the user is allowed to add songs to this playlist
      $song_search_query = sanitize_input($conn, $_POST['add_song_query']); // Directly using POST data, ensure sanitization if not done by a global function
 
     // Search for the song

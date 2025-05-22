@@ -227,7 +227,7 @@ $conn->close();
     <div class="homepage-container">
         <header class="homepage-header">
             <h1>Welcome, <?php echo ($user_name); ?>!</h1>
-            <div> <!-- Wrapper for links -->
+            <div> 
                 <a href="playlistpage.php">My Playlists</a>
                 <a href="logout.php">Logout</a>
             </div>
@@ -364,7 +364,7 @@ $conn->close();
                                         <img src="<?php echo ($song['image'] ?? 'default_song.png'); ?>" alt="<?php echo ($song['title']); ?>">
                                         <div class="song-info">
                                             <h4><?php echo ($song['title']); ?></h4>
-                                            <p><?php echo ($song['artist_name'] ?? 'Unknown Artist'); ?></p>
+                                            <p><?php echo ($song['artist_name']); ?></p>
                                             <p class="playtime"><?php echo date('d M Y, H:i', strtotime($song['playtime'])); ?></p>
                                         </div>
                                     </a>
@@ -408,7 +408,7 @@ $conn->close();
     </div>
 
     <script>
-        // JavaScript to handle the new playlist form toggle
+        // sooo little JavaScript code to handle the new playlist form toggle
         document.addEventListener('DOMContentLoaded', function() {
             const showFormBtn = document.getElementById('showNewPlaylistFormBtn');
             const cancelFormBtn = document.getElementById('cancelNewPlaylistBtn');

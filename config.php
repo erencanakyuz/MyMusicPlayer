@@ -17,7 +17,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Function to safely sanitize input (basic, for demonstration)
+// Function to safely sanitize input (SQL Injection PRACTICE)
 function sanitize_input($conn, $data) {
     return mysqli_real_escape_string($conn, (strip_tags($data)));
 }

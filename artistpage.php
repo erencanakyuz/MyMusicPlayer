@@ -3,7 +3,7 @@
 // Student Name: Eren Can Akyüz
  // Student ID: 20220702128
 // Description: Displays artist details, their albums, and top songs.
-// Allows user to 'follow' the artist, updating relevant user and artist data.
+// Allows user to follow the artist, updating relevant user and artist data.
 
 session_start();
 
@@ -27,16 +27,14 @@ $message_type = '';
 
 // --- Handle Follow Artist Action ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['follow_artist'])) {
-    // For simplicity, we'll just increment artist's listeners and user's follower_num for this project.
-    // A more complex system would involve a separate 'FOLLOWS' table.
-
+    
     // Increment artist's listeners count
     $stmt_update_artist = $conn->prepare("UPDATE ARTISTS SET listeners = listeners + 1 WHERE artist_id = ?");
     $stmt_update_artist->bind_param("i", $artist_id);
     if ($stmt_update_artist->execute()) {
         $message = "You are now following this artist!";
         $message_type = 'success';
-        // Optionally update user's most_played_artist or similar logic here
+        
     } else {
         $message = "Error following artist: " . $conn->error;
         $message_type = 'error';

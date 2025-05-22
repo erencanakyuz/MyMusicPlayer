@@ -64,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_add_to_playlis
 
         if ($result_check_exists->num_rows == 0) {
             // Add song to playlist
-            // The PDF requires PLAYLIST_SONGS to have date_added.
-            // We'll use NOW() for the date_added.
+            
+            //  using NOW() for the date_added.
             $stmt_add_song = $conn->prepare("INSERT INTO PLAYLIST_SONGS (playlist_id, song_id, date_added) VALUES (?, ?, NOW())");
             $stmt_add_song->bind_param("ii", $playlist_id_to_add_to, $song_id_to_add);
             if ($stmt_add_song->execute()) {

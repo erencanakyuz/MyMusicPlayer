@@ -26,7 +26,7 @@ if ($conn->connect_error) {
 
 echo "Attempting to create database '{$dbname}' and tables...<br>";
 
-// Drop database if it exists (for fresh installation on repeated runs)
+// Drop databasefor fresh installation on repeated runs
 $sql_drop_db = "DROP DATABASE IF EXISTS `{$dbname}`";
 if ($conn->query($sql_drop_db) === TRUE) {
     echo "Existing database `{$dbname}` dropped successfully.<br>";
@@ -46,8 +46,7 @@ if ($conn->query($sql_create_db) === TRUE) {
 $conn->select_db($dbname);
 
 // SQL for creating tables
-// Define CREATE TABLE statements directly here or load from a file.
-// For simplicity in this project, I'll list them here.
+// Define CREATE TABLE statements directly here for easy practicee
 $create_tables_sql = "
 -- COUNTRY Table
 CREATE TABLE COUNTRY (
@@ -186,7 +185,7 @@ echo "Database initialization complete, Redirecting to login page...";
 
 $conn->close();
 
-// Redirect to login page
+// Redirect to login page!!!
 header("Location: login.php");
 exit();
 ?>

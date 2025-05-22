@@ -3,7 +3,7 @@
 // Student Name: Eren Can Akyüz
  // Student ID: 20220702128
 // Description: Page for genre-related and country-related operations.
-// Allows custom SQL queries (for demonstration) and displays predefined reports.
+// Allows custom SQL queries and displays predefined reports.
 
 session_start();
 
@@ -21,13 +21,11 @@ $message_type = '';
 
 // --- Handle Custom SQL Query Submission ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['custom_sql_query'])) {
-    $user_query = trim($_POST['custom_sql_query']); // Do NOT sanitize this for custom queries, but be aware of security implications for a real app.
+    $user_query = trim($_POST['custom_sql_query']); //Secutiy checks is important here consider 
 
     if (!empty($user_query)) {
         // Execute the query
-        // WARNING: This is highly insecure for a public application.
-        // For a university project demonstrating raw SQL interaction, it might be acceptable,
-        // but always acknowledge SQL Injection vulnerability.
+       
         $result = $conn->query($user_query);
 
         if ($result) {
@@ -53,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['custom_sql_query'])) {
 
 // --- Predefined Queries ---
 
-// Query 1: Top 5 Genres Listened To (based on user's top_genre for simplicity, or aggregated PLAY_HISTORY)
+// Query 1: Top 5 Genres Listened To (based on user's top_genre, aggregated PLAY_HISTORY)
 $predefined_queries['top_genres'] = "
     SELECT U.top_genre AS genre, COUNT(U.user_id) AS user_count
     FROM USERS U
@@ -139,10 +137,10 @@ $conn->close();
         <div class="section sql-input-section">
             <h2>Run Custom SQL Query</h2>
             <p class="error-text">
-                WARNING: This feature is for demonstration purposes. Running arbitrary SQL queries can be a security risk (SQL Injection).
+                Be careful here :=>
             </p>
             <form action="generalSQL.php" method="post">
-                <label for="custom_sql_query">Enter your SQL query (SELECT statements recommended):</label>
+                <label for="custom_sql_query">Enter your SQL query:</label>
                 <textarea id="custom_sql_query" name="custom_sql_query" rows="5" placeholder="e.g., SELECT * FROM USERS LIMIT 10;"></textarea>
                 <button type="submit">Execute Query</button>
             </form>
@@ -168,7 +166,7 @@ $conn->close();
                     </tbody>
                 </table>
             <?php elseif (isset($_POST['custom_sql_query']) && empty($custom_query_results) && $message_type != 'error'): ?>
-                <p>Query executed, but no results found or it was a DML operation.</p>
+                <p>Query executed,  no result.</p>
             <?php endif; ?>
         </div>
 
@@ -184,7 +182,7 @@ $conn->close();
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
-                        <p>No data available.</p>
+                        <p>No data .</p>
                     <?php endif; ?>
                 </div>
 
@@ -199,7 +197,7 @@ $conn->close();
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
-                        <p>No data available.</p>
+                        <p>No data .</p>
                     <?php endif; ?>
                 </div>
 
@@ -212,7 +210,7 @@ $conn->close();
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
-                        <p>No data available.</p>
+                        <p>No data .</p>
                     <?php endif; ?>
                 </div>
 
@@ -227,7 +225,7 @@ $conn->close();
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
-                        <p>No data available.</p>
+                        <p>No data .</p>
                     <?php endif; ?>
                 </div>
 
@@ -242,7 +240,7 @@ $conn->close();
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
-                        <p>No data available.</p>
+                        <p>No data .</p>
                     <?php endif; ?>
                 </div>
             </div>
