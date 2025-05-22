@@ -5,8 +5,8 @@
 // Description: Centralized database configuration for the Music Player application.
 
 $servername = "localhost";
-$username = "root"; // Your MySQL username (default for AMPPS)
-$password = "mysql"; // Your MySQL password (default for AMPPS, or '3548' if you changed it)
+$username = "root"; 
+$password = "mysql"; 
 $dbname = "ErenCan_Akyuz_musicplayer"; 
 
 // Create database connection

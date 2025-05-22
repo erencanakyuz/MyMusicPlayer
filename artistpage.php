@@ -1,7 +1,7 @@
 <?php
 // artistpage.php
 // Student Name: Eren Can Akyüz
-// Student ID: 20070006024
+ // Student ID: 20220702128
 // Description: Displays artist details, their albums, and top songs.
 // Allows user to 'follow' the artist, updating relevant user and artist data.
 

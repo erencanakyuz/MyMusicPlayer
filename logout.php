@@ -1,7 +1,7 @@
 <?php
 // logout.php
-// Student Name: [Your Name]
-// Student ID: [Your Student ID]
+// Student Name: Eren Can Akyüz
+ // Student ID: 20220702128
 // Description: Destroys the user session and redirects to the login page.
 
 session_start();

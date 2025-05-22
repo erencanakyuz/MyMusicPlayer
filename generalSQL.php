@@ -1,7 +1,7 @@
 <?php
 // generalSQL.php
 // Student Name: Eren Can Akyüz
-// Student ID: 20070006024
+ // Student ID: 20220702128
 // Description: Page for genre-related and country-related operations.
 // Allows custom SQL queries (for demonstration) and displays predefined reports.
 

@@ -1,7 +1,7 @@
 <?php
 // install.php
-// Student Name: [Your Name]
-// Student ID: [Your Student ID]
+// Student Name: Eren Can Akyüz
+ // Student ID: 20220702128
 // Description: Script to create the database, tables, and populate them with initial data.
 // After execution, redirects to login.php.
 
@@ -10,8 +10,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $servername = "localhost";
-$username = "root"; // Your MySQL username
-$password = "mysql"; // Your MySQL password
+$username = "root"; 
+$password = "mysql"; 
 
 
 $dbname = "ErenCan_Akyuz_musicplayer"; 

@@ -1,7 +1,7 @@
 <?php
 // login.php
-// Student Name: [Your Name]
-// Student ID: [Your Student ID]
+// Student Name: Eren Can Akyüz
+ // Student ID: 20220702128
 // Description: Handles user login, authenticates against the database, and sets up session variables.
 // This file now handles both displaying the login form and processing submissions.
 
