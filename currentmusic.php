@@ -1,7 +1,7 @@
 <?php
 // currentmusic.php
-// Student Name: [Your Name]
-// Student ID: [Your Student ID]
+// Student Name: Eren Can Akyüz
+// Student ID: 20070006024
 // Description: Displays detailed information about a selected song.
 // Updates the user's play history for the currently playing song.
 
@@ -130,11 +130,10 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+<head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Now Playing: <?php echo $current_song ? htmlspecialchars($current_song['title']) : 'Song Not Found'; ?></title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">

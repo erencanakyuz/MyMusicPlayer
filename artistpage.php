@@ -1,7 +1,7 @@
 <?php
 // artistpage.php
-// Student Name: [Your Name]
-// Student ID: [Your Student ID]
+// Student Name: Eren Can Akyüz
+// Student ID: 20070006024
 // Description: Displays artist details, their albums, and top songs.
 // Allows user to 'follow' the artist, updating relevant user and artist data.
 
@@ -93,9 +93,8 @@ $conn->close();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artist: <?php echo $artist_data ? htmlspecialchars($artist_data['name']) : 'Artist Not Found'; ?></title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Artist: <?php echo $artist_data ? htmlspecialchars($artist_data['name']) : 'Artist Not Found'; ?></title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">

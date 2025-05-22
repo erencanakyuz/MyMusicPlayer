@@ -1,7 +1,7 @@
 <?php
 // homepage.php
-// Student Name: [Your Name]
-// Student ID: [Your Student ID]
+// Student Name: Eren Can Akyüz
+// Student ID: 20070006024
 // Description: Displays user's playlists, last played songs, and artists from their country.
 // Handles search functionality for playlists, songs, and artists.
 
@@ -181,6 +181,38 @@ while ($row = $result_artists->fetch_assoc()) {
 }
 $stmt_artists->close();
 
+// 4. Top 5 Songs (Based on rank)
+$top_songs = [];
+$stmt_songs = $conn->prepare("
+    SELECT S.song_id, S.title, S.image, A.name AS artist_name, AL.name AS album_name
+    FROM SONGS S
+    JOIN ALBUMS AL ON S.album_id = AL.album_id
+    JOIN ARTISTS A ON AL.artist_id = A.artist_id
+    ORDER BY S.`rank` DESC
+    LIMIT 5
+");
+$stmt_songs->execute();
+$result_songs = $stmt_songs->get_result();
+while ($row = $result_songs->fetch_assoc()) {
+    $top_songs[] = $row;
+}
+$stmt_songs->close();
+
+// 5. User's Playlists
+$user_playlists = [];
+$stmt_user_playlists = $conn->prepare("
+    SELECT playlist_id, title, description, image
+    FROM PLAYLISTS 
+    WHERE user_id = ?
+");
+$stmt_user_playlists->bind_param("i", $user_id);
+$stmt_user_playlists->execute();
+$result_user_playlists = $stmt_user_playlists->get_result();
+while ($row = $result_user_playlists->fetch_assoc()) {
+    $user_playlists[] = $row;
+}
+$stmt_user_playlists->close();
+
 $conn->close();
 ?>
 
@@ -195,6 +227,25 @@ $conn->close();
         /* Inline style for the new playlist form toggle */
         #newPlaylistForm {
             display: none; /* Hidden by default */
+        }
+        
+        .add-button {
+            font-size: 1.5em;
+            padding: 2px 10px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .history-search, .artist-search {
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -275,81 +326,39 @@ $conn->close();
             <main class="homepage-main-content">
                 <aside class="left-column">
                     <section class="content-section">
-                        <h2>Top Artists</h2>
-                        <?php if (!empty($top_artists)): ?>
-                            <div class="grid-container">
-                                <?php foreach ($top_artists as $artist): ?>
-                                <div class="grid-item artist-item">
-                                    <a href="artistpage.php?artist_id=<?php echo $artist['artist_id']; ?>">
-                                        <img src="<?php echo htmlspecialchars($artist['image'] ?? 'default_artist.png'); ?>" alt="<?php echo htmlspecialchars($artist['name']); ?>">
-                                        <div class="info">
-                                            <h3><?php echo htmlspecialchars($artist['name']); ?></h3>
-                                        </div>
-                                    </a>
-                                </div>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php else: ?>
-                            <p>No top artists to display.</p>
-                        <?php endif; ?>
-                    </section>
-
-                    <!-- SECTION REMOVED: Top Albums -->
-                    <!-- 
-                    <section class="content-section">
-                        <h2>Top Albums</h2>
-                        <?php if (!empty($top_albums)): ?>
-                            <div class="grid-container">
-                                <?php foreach ($top_albums as $album): ?>
-                                <div class="grid-item album-item">
-                                    <a href="albumpage.php?album_id=<?php echo $album['album_id']; ?>">
-                                        <img src="<?php echo htmlspecialchars($album['image'] ?? 'default_album.png'); ?>" alt="<?php echo htmlspecialchars($album['name']); ?>">
-                                        <div class="info">
-                                            <h3><?php echo htmlspecialchars($album['name']); ?></h3>
-                                            <p><?php echo htmlspecialchars($album['artist_name'] ?? 'Unknown Artist'); ?></p>
-                                        </div>
-                                    </a>
-                                </div>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php else: ?>
-                            <p>No top albums to display.</p>
-                        <?php endif; ?>
-                    </section>
-                    -->
-                </aside>
-
-                <section class="right-column">
-                    <section class="content-section">
-                        <h2>Top Songs</h2>
-                        <?php if (!empty($top_songs)): ?>
-                            <ul class="song-list">
-                                <?php foreach ($top_songs as $song): ?>
-                                <li class="song-item">
-                                    <a href="currentmusic.php?song_id=<?php echo $song['song_id']; ?>">
-                                        <img src="<?php echo htmlspecialchars($song['image'] ?? 'default_song.png'); ?>" alt="<?php echo htmlspecialchars($song['title']); ?>">
-                                        <div class="song-info">
-                                            <h4><?php echo htmlspecialchars($song['title']); ?></h4>
-                                            <p><?php echo htmlspecialchars($song['artist_name'] ?? 'Unknown Artist'); ?> - <?php echo htmlspecialchars($song['album_name'] ?? 'Unknown Album'); ?></p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php else: ?>
-                            <p>No top songs to display.</p>
-                        <?php endif; ?>
-                    </section>
-
-                    <section class="content-section">
                         <h2>My Playlists</h2>
+                        <div class="playlist-header">
+                            <div></div>
+                            <button id="showNewPlaylistFormBtn" class="button add-button">+</button>
+                        </div>
+                        
+                        <!-- New Playlist Form (Hidden by Default) -->
+                        <div id="newPlaylistForm" class="new-playlist-form">
+                            <form action="homepage.php" method="POST">
+                                <div>
+                                    <label for="new_playlist_title">Playlist Title:</label>
+                                    <input type="text" id="new_playlist_title" name="new_playlist_title" required>
+                                </div>
+                                <div>
+                                    <label for="new_playlist_description">Description (Optional):</label>
+                                    <textarea id="new_playlist_description" name="new_playlist_description"></textarea>
+                                </div>
+                                <div>
+                                    <label for="new_playlist_image">Image URL (Optional):</label>
+                                    <input type="text" id="new_playlist_image" name="new_playlist_image">
+                                </div>
+                                <button type="submit">Create Playlist</button>
+                                <button type="button" id="cancelNewPlaylistBtn">Cancel</button>
+                            </form>
+                        </div>
+
                         <?php if (!empty($user_playlists)): ?>
                             <div class="grid-container playlist-grid">
                                 <?php foreach ($user_playlists as $playlist): ?>
                                 <div class="grid-item playlist-item">
                                     <a href="playlistpage.php?playlist_id=<?php echo $playlist['playlist_id']; ?>">
                                         <div class="info">
-                                            <h3><?php echo htmlspecialchars($playlist['name']); ?></h3>
+                                            <h3><?php echo htmlspecialchars($playlist['title']); ?></h3>
                                             <?php if (!empty($playlist['description'])): ?>
                                                 <p><?php echo htmlspecialchars($playlist['description']); ?></p>
                                             <?php endif; ?>
@@ -359,12 +368,87 @@ $conn->close();
                                 <?php endforeach; ?>
                             </div>
                         <?php else: ?>
-                            <p>You have no playlists. <a href="playlistpage.php?action=create">Create one?</a></p>
+                            <p>You have no playlists. Use the + button to create one.</p>
+                        <?php endif; ?>
+                    </section>
+                </aside>
+
+                <section class="right-column">
+                    <section class="content-section">
+                        <h2>Last Played Songs</h2>
+                        <div class="search-container history-search">
+                            <form action="homepage.php" method="POST">
+                                <input type="text" name="history_search_query" placeholder="Search in your play history...">
+                                <button type="submit">Search</button>
+                            </form>
+                        </div>
+                        <?php if (!empty($last_played_songs)): ?>
+                            <ul class="song-list">
+                                <?php foreach ($last_played_songs as $song): ?>
+                                <li class="song-item">
+                                    <a href="currentmusic.php?song_id=<?php echo $song['song_id']; ?>">
+                                        <img src="<?php echo htmlspecialchars($song['image'] ?? 'default_song.png'); ?>" alt="<?php echo htmlspecialchars($song['title']); ?>">
+                                        <div class="song-info">
+                                            <h4><?php echo htmlspecialchars($song['title']); ?></h4>
+                                            <p><?php echo htmlspecialchars($song['artist_name'] ?? 'Unknown Artist'); ?></p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php else: ?>
+                            <p>No play history to display. Start listening to some music!</p>
+                        <?php endif; ?>
+                    </section>
+
+                    <section class="content-section">
+                        <h2>Top Artists from Your Country</h2>
+                        <div class="search-container artist-search">
+                            <form action="homepage.php" method="POST">
+                                <input type="text" name="artist_search_query" placeholder="Search for artists...">
+                                <button type="submit">Search</button>
+                            </form>
+                        </div>
+                        <?php if (!empty($top_artists)): ?>
+                            <div class="grid-container">
+                                <?php foreach ($top_artists as $artist): ?>
+                                <div class="grid-item artist-item">
+                                    <a href="artistpage.php?artist_id=<?php echo $artist['artist_id']; ?>">
+                                        <img src="<?php echo htmlspecialchars($artist['image'] ?? 'default_artist.png'); ?>" alt="<?php echo htmlspecialchars($artist['name']); ?>">
+                                        <div class="info">
+                                            <h3><?php echo htmlspecialchars($artist['name']); ?></h3>
+                                            <p>Listeners: <?php echo number_format($artist['listeners']); ?></p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php else: ?>
+                            <p>No top artists to display from your country.</p>
                         <?php endif; ?>
                     </section>
                 </section>
             </main>
         <?php endif; ?>
     </div>
+
+    <script>
+        // JavaScript to handle the new playlist form toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const showFormBtn = document.getElementById('showNewPlaylistFormBtn');
+            const cancelFormBtn = document.getElementById('cancelNewPlaylistBtn');
+            const playlistForm = document.getElementById('newPlaylistForm');
+            
+            if (showFormBtn && cancelFormBtn && playlistForm) {
+                showFormBtn.addEventListener('click', function() {
+                    playlistForm.style.display = 'block';
+                });
+                
+                cancelFormBtn.addEventListener('click', function() {
+                    playlistForm.style.display = 'none';
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 // albumpage.php
-// Student Name: [Your Name]
-// Student ID: [Your Student ID]
+// Student Name: Eren Can Akyüz
+// Student ID: 20070006024
 // Description: Displays all songs in a selected album.
 // Adding new songs to an album is NOT allowed here.
 
@@ -73,11 +73,10 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+<head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album: <?php echo htmlspecialchars($album_title); ?></title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
