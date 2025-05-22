@@ -31,7 +31,7 @@ Albümdeki Şarkıları Çekme:
 Eğer albüm detayları başarıyla çekilmişse, bu album_id'ye sahip tüm şarkılar (SONGS tablosundan) çekilir.
 Her şarkının başlığı, süresi, türü ve resmi alınır.
 HTML Yapısı ve Veri Gösterimi:
-Sayfa, styles.css ile şekillendirilmiş bir container içine yerleştirilir.
+Sayfa, style.css ile şekillendirilmiş bir container içine yerleştirilir.
 Albüm başlığı, sanatçı adı, resim ve çıkış tarihi gösterilir. Sanatçı adına tıklanabilir bir link (artistpage.php) verilir.
 "Songs in Album" başlığı altında, albümdeki tüm şarkılar bir liste halinde sunulur. Her şarkı için başlık, tür, süre ve resmi gösterilir.
 Her şarkı başlığına tıklanabilir bir link (currentmusic.php) verilir, böylece kullanıcı şarkıyı çalabilir.

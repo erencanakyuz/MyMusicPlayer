@@ -353,10 +353,10 @@ $conn->close();
                         </div>
 
                         <?php if (!empty($user_playlists)): ?>
-                            <div class="grid-container playlist-grid">
-                                <?php foreach ($user_playlists as $playlist): ?>
+                            <div class="grid-container playlist-grid">                                <?php foreach ($user_playlists as $playlist): ?>
                                 <div class="grid-item playlist-item">
                                     <a href="playlistpage.php?playlist_id=<?php echo $playlist['playlist_id']; ?>">
+                                        <img src="<?php echo htmlspecialchars($playlist['image'] ?? 'default_playlist.png'); ?>" alt="<?php echo htmlspecialchars($playlist['title']); ?>">
                                         <div class="info">
                                             <h3><?php echo htmlspecialchars($playlist['title']); ?></h3>
                                             <?php if (!empty($playlist['description'])): ?>

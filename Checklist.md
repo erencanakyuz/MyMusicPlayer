@@ -417,3 +417,59 @@ This section requires checking the implementation details within your PHP files.
 7.  **Verify SQL Queries**: Ensure all SQL queries are complete and correct, especially the one in playlistpage.php for fetching song details including artist country.
 
 This detailed check should help you align your project with all the requirements. Let me know if you want to focus on a specific file or requirement next.
+
+
+
+
+MÜZİK ÇALAR UYGULAMASI - İSTENEN ÖZELLİKLER
+1. Uygulama Başlangıcı ve Giriş:
+Uygulama, veritabanını başlatmak için tek bir buton içeren bir başlangıç sayfasıyla açılır.
+Veritabanı başlatıldıktan sonra kullanıcı giriş sayfasına yönlendirilir.
+Kullanıcı adı ve şifre ile giriş yapabilir.
+Başarılı girişin ardından kullanıcı ana sayfaya yönlendirilir.
+Giriş başarılı olduğunda ana sayfa başlığında kullanıcının adı ile "Merhaba, [Ad]!" şeklinde bir karşılama mesajı görünür.
+2. Ana Sayfa (Giriş Sonrası):
+Kullanıcının tüm oynatma listeleri, görselleriyle birlikte sayfanın sol tarafında gösterilir.
+Sayfanın sağ üst bölümünde kullanıcının son 10 dinlediği şarkı listelenir.
+Sayfanın sağ alt bölümünde, kullanıcının ülkesinden en çok dinleyiciye sahip 5 sanatçı listelenir.
+3. Ana Sayfa Arama ve İşlevsellikler:
+Sayfanın sol üstünde, oynatma listesi adı veya şarkı adına göre arama yapmayı sağlayan genel bir arama çubuğu bulunur.
+Arama sonucu bir oynatma listesiyse, ilgili oynatma listesi sayfasına yönlendirilir.
+Arama sonucu bir şarkıysa, şarkının detay sayfasına yönlendirilir ve şarkı dinleme geçmişine eklenir.
+Sanatçılar bölümünde yeni sanatçıları aramak için ayrı bir arama çubuğu bulunur.
+Aranan sanatçı bulunursa, sanatçının detay sayfası açılır.
+Sanatçı sayfasında bir "Takip Et" butonu bulunur ve bu butona tıklandığında ilgili veriler güncellenir.
+Oynatma listeleri bölümünün sağ üst köşesinde yeni bir oynatma listesi eklemek için bir "+" butonu bulunur.
+Dinleme geçmişi bölümünde, geçmişteki bir şarkıyı aramak ve dinlemek için bir arama çubuğu bulunur.
+Aranan şarkı veritabanında varsa, şarkının sayfası gösterilir ve dinleme geçmişi güncellenir.
+4. Oynatma Listesi Sayfası:
+Seçilen oynatma listesindeki tüm şarkılar listelenir.
+Her şarkının yanında sanatçısının ülke bilgisi de gösterilir.
+Oynatma listesine yeni şarkı eklemek için sayfanın üstünde bir arama çubuğu bulunur.
+Aranan şarkı veritabanında varsa, şarkının detay sayfası "Oynatma Listesine Ekle" butonu ile birlikte görüntülenir.
+"Oynatma Listesine Ekle" butonuna tıklandığında, şarkı oynatma listesine eklenir ve ilgili veriler güncellenir.
+5. Çalınan Müzik Sayfası:
+O anda çalmakta olan şarkının detaylı bilgileri (başlık, sanatçı, albüm, süre, tür, görsel vb.) görüntülenir.
+6. Sanatçı Sayfası:
+Sanatçının resmi, bilgileri, biyografisi ve dinleyici sayısı sol tarafta gösterilir.
+Sayfanın üst bölümünde sanatçının son beş albümü listelenir.
+Sayfanın alt bölümünde sanatçının en çok dinlenen 5 şarkısı listelenir.
+Bu sayfadan bir şarkı seçildiğinde, çalınan müzik sayfasına yönlendirilir.
+Bu sayfadan bir albüm seçildiğinde, oynatma listesi sayfasına benzer şekilde albümdeki şarkılar listelenir. Ancak, albüme yeni şarkı eklenmesine izin verilmez.
+7. Genel SQL İşlemleri Sayfası:
+Tür (genre) ve ülke (country) ile ilgili sorgulamalar için ek bir sayfa bulunur.
+Kullanıcının kendi SQL sorgularını girebileceği bir giriş alanı bulunur.
+Sorgu sonuçları sayfadaki 5 ayrı veri alanında (data slot) görüntülenir.
+Önceden tanımlanmış raporlar (örneğin, uygulamanın kullanıcıları tarafından en çok dinlenen 5 tür veya ülkeye göre en çok dinlenen 5 şarkı) bu sayfanın örnekleridir.
+8. Genel Uygulama Davranışları:
+Kullanıcıya uygun yönlendirme ve hata mesajları görüntülenir.
+Veri tabanını güncelleyen tüm işlemler (takip etme, şarkı ekleme vb.) doğru şekilde ele alınır.
+
+
+NOTED:
+Ekstra Özellikler / İyi Uygulamalar (PDF'in ötesinde):
+albumpage.php'nin Ayrılması: Albümler için ayrı bir sayfa oluşturarak "albümde şarkı eklenemez" kısıtlamasını temizce uygulamanız, kodun modülerliği ve anlaşılırlığı açısından çok iyi bir tasarım kararı.
+Detaylı Veri Üretimi (generate_data.php): Benzersizlik kontrolleri (username, email, artist name, playlist_song kombinasyonları) ve şarkıların albüm resimlerini alması gibi özellikler, veri üretimi için oldukça sağlam ve öğrenci projesi seviyesinin üzerinde bir kalite gösteriyor.
+Sanitizasyon Fonksiyonu (sanitize_input): config.php'de olması ve kullanılması iyi bir güvenlik pratiği.
+Kapsamlı Önceden Tanımlanmış SQL Raporları: generalSQL.php'deki 5 detaylı rapor, PDF'in "5 data slots" gereksinimini fazlasıyla karşılıyor.
+Genel CSS Detaylandırması: style.css dosyanız, temel bir proje için oldukça detaylı ve düzenli bir styling sağlıyor.
