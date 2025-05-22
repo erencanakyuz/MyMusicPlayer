@@ -234,6 +234,8 @@ while ($artist_id_counter <= MIN_ARTISTS) {
 // --- 4. Generate ALBUMS data ---
 fwrite($fp, "\n-- ALBUMS Data --\n");
 $album_id_counter = 1;
+$album_id_to_image_map = []; // <<<<<<<<< YENİ EKLENEN SATIR
+
 while ($album_id_counter <= MIN_ALBUMS) {
     $artist_id = $artist_ids[array_rand($artist_ids)];
     $name = "Album " . generate_random_string(8);
@@ -245,6 +247,7 @@ while ($album_id_counter <= MIN_ALBUMS) {
     fwrite($fp, "INSERT INTO ALBUMS (album_id, artist_id, name, release_date, genre, music_number, image) VALUES (");
     fwrite($fp, "{$album_id_counter}, {$artist_id}, '{$name}', '{$release_date}', '{$genre}', {$music_number}, '{$image_url}');\n");
     $album_ids[] = $album_id_counter;
+    $album_id_to_image_map[$album_id_counter] = $image_url; // <<<<<<<<< YENİ EKLENEN SATIR
     $album_id_counter++;
 }
 
@@ -254,19 +257,16 @@ $song_id_counter = 1;
 while ($song_id_counter <= MIN_SONGS) {
     $album_id = $album_ids[array_rand($album_ids)];
     // Fetch album image to use for song
-    $album_image_query = "SELECT image FROM ALBUMS WHERE album_id = {$album_id} LIMIT 1";
-    // In a real scenario, you'd run this query. For data generation, we'll just use a random image or the album's general image URL pattern.
-    // For simplicity in data generation, let's just pick an image URL that would likely match an album's.
-    $song_image_url = "https://picsum.photos/id/" . rand(201, 300) . "/200/200"; // Reusing album image range
+    $song_image_url = $album_id_to_image_map[$album_id] ?? "https://picsum.photos/id/" . rand(201, 300) . "/200/200"; // Albüm resmi yoksa yedek
 
     $title = "Song " . generate_random_string(10);
     $duration = rand(120, 480); // Duration in seconds (2 to 8 minutes)
     $genre = $input_genres[array_rand($input_genres)];
     $release_date = generate_random_date('2008-01-01', '2024-05-01'); // Can be same as album or slightly later
-    $popularity_rank = rand(1, 1000); // Higher rank is more popular
+    $song_rank = rand(1, 1000); // Higher rank is more popular
 
-    fwrite($fp, "INSERT INTO SONGS (song_id, album_id, title, duration, genre, release_date, popularity_rank, image) VALUES (");
-    fwrite($fp, "{$song_id_counter}, {$album_id}, '{$title}', {$duration}, '{$genre}', '{$release_date}', {$popularity_rank}, '{$song_image_url}');\n");
+    fwrite($fp, "INSERT INTO SONGS (song_id, album_id, title, duration, genre, release_date, `rank`, image) VALUES (");
+    fwrite($fp, "{$song_id_counter}, {$album_id}, '{$title}', {$duration}, '{$genre}', '{$release_date}', {$song_rank}, '{$song_image_url}');\n");
     $song_ids[] = $song_id_counter;
     $song_id_counter++;
 }

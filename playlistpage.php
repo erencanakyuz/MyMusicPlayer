@@ -40,10 +40,14 @@ $stmt_playlist_details->close();
 
 // --- Handle Add Song to Playlist ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_song_query'])) {
-    $song_search_query = sanitize_input($conn, $_POST['add_song_query']);
+    // Assuming sanitize_input() is defined in config.php or globally available
+    // If not, ensure $conn->real_escape_string or prepared statements are used consistently.
+    // For this example, we'll assume sanitize_input is available as per the original snippet's context.
+    // $song_search_query = sanitize_input($conn, $_POST['add_song_query']);
+    $song_search_query = $_POST['add_song_query']; // Directly using POST data, ensure sanitization if not done by a global function
 
     // Search for the song
-    $stmt_find_song = $conn->prepare("SELECT song_id, title, image FROM SONGS WHERE title LIKE ? LIMIT 1");
+    $stmt_find_song = $conn->prepare("SELECT song_id, title FROM SONGS WHERE title LIKE ? LIMIT 1");
     $like_query = "%" . $song_search_query . "%";
     $stmt_find_song->bind_param("s", $like_query);
     $stmt_find_song->execute();
@@ -51,29 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_song_query'])) {
 
     if ($result_find_song->num_rows > 0) {
         $found_song = $result_find_song->fetch_assoc();
-        // Check if song is already in playlist
-        $stmt_check_exists = $conn->prepare("SELECT playlistsong_id FROM PLAYLIST_SONGS WHERE playlist_id = ? AND song_id = ?");
-        $stmt_check_exists->bind_param("ii", $playlist_id, $found_song['song_id']);
-        $stmt_check_exists->execute();
-        $result_check_exists = $stmt_check_exists->get_result();
-
-        if ($result_check_exists->num_rows == 0) {
-            // Add song to playlist
-            $stmt_add_song = $conn->prepare("INSERT INTO PLAYLIST_SONGS (playlist_id, song_id) VALUES (?, ?)");
-            $stmt_add_song->bind_param("ii", $playlist_id, $found_song['song_id']);
-            if ($stmt_add_song->execute()) {
-                $message = "'" . htmlspecialchars($found_song['title']) . "' added to playlist!";
-                $message_type = 'success';
-            } else {
-                $message = "Error adding song: " . $conn->error;
-                $message_type = 'error';
-            }
-            $stmt_add_song->close();
-        } else {
-            $message = "'" . htmlspecialchars($found_song['title']) . "' is already in this playlist.";
-            $message_type = 'error';
-        }
-        $stmt_check_exists->close();
+        // PDF Requirement: Redirect to song page with an option to add from there.
+        header("Location: currentmusic.php?song_id=" . $found_song['song_id'] . "&action=add_to_playlist&target_playlist_id=" . $playlist_id);
+        exit();
     } else {
         $message = "Song '" . htmlspecialchars($song_search_query) . "' not found.";
         $message_type = 'error';

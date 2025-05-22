@@ -131,7 +131,7 @@ $conn->close();
                             <div class="album-item">
                                 <img src="<?php echo htmlspecialchars($album['image']); ?>" alt="Album Image">
                                 <div class="album-info">
-                                    <h4><a href="playlistpage.php?album_id=<?php echo htmlspecialchars($album['album_id']); ?>"><?php echo htmlspecialchars($album['name']); ?></a></h4>
+                                    <h4><a href="albumpage.php?album_id=<?php echo htmlspecialchars($album['album_id']); ?>"><?php echo htmlspecialchars($album['name']); ?></a></h4>
                                     <p>Release Date: <?php echo htmlspecialchars($album['release_date']); ?></p>
                                 </div>
                             </div>

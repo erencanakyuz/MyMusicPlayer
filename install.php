@@ -111,7 +111,7 @@ CREATE TABLE SONGS (
     duration INT, -- in seconds
     genre VARCHAR(100),
     release_date DATE,
-    popularity_rank INT, -- popularity rank
+    `rank` INT, -- popularity rank
     image VARCHAR(255), -- can use album image
     FOREIGN KEY (album_id) REFERENCES ALBUMS(album_id)
 );
