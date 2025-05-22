@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_song_query'])) {
         header("Location: currentmusic.php?song_id=" . $found_song['song_id'] . "&action=add_to_playlist&target_playlist_id=" . $playlist_id);
         exit();
     } else {
-        $message = "Song '" . htmlspecialchars($song_search_query) . "' not found.";
+        $message = "Song '" . ($song_search_query) . "' not found.";
         $message_type = 'error';
     }
     $stmt_find_song->close();
@@ -93,16 +93,16 @@ $conn->close();
 <html lang="en">
 <head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Playlist: <?php echo htmlspecialchars($playlist_title); ?></title>
+    <title>Playlist: <?php echo ($playlist_title); ?></title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Playlist: <?php echo htmlspecialchars($playlist_title); ?></h1>
+        <h1>Playlist: <?php echo ($playlist_title); ?></h1>
         <p><a href="homepage.php">Back to Homepage</a></p>
 
         <?php if ($message): ?>
-            <p class="<?php echo $message_type; ?>-message"><?php echo htmlspecialchars($message); ?></p>
+            <p class="<?php echo $message_type; ?>-message"><?php echo ($message); ?></p>
         <?php endif; ?>
 
         <div class="add-song-form">
@@ -120,14 +120,14 @@ $conn->close();
                 <?php foreach ($playlist_songs as $song): ?>
                     <div class="song-list-item">
                         <div class="song-info">
-                            <img src="<?php echo htmlspecialchars($song['image']); ?>" alt="Song Image" class="song-thumbnail">
-                            <h4><a href="currentmusic.php?song_id=<?php echo htmlspecialchars($song['song_id']); ?>"><?php echo htmlspecialchars($song['title']); ?></a></h4>
-                            <p>Artist: <?php echo htmlspecialchars($song['artist_name']); ?> (<?php echo htmlspecialchars($song['artist_country']); ?>)</p>
+                            <img src="<?php echo ($song['image']); ?>" alt="Song Image" class="song-thumbnail">
+                            <h4><a href="currentmusic.php?song_id=<?php echo ($song['song_id']); ?>"><?php echo ($song['title']); ?></a></h4>
+                            <p>Artist: <?php echo ($song['artist_name']); ?> (<?php echo ($song['artist_country']); ?>)</p>
                             <p>Duration: <?php echo gmdate("i:s", $song['duration']); ?></p>
                         </div>
                         <div class="song-actions">
                             <form action="currentmusic.php" method="get" class="inline-form">
-                                <input type="hidden" name="song_id" value="<?php echo htmlspecialchars($song['song_id']); ?>">
+                                <input type="hidden" name="song_id" value="<?php echo ($song['song_id']); ?>">
                                 <button type="submit">Play</button>
                             </form>
                         </div>

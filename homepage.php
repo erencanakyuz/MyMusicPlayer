@@ -221,12 +221,12 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello, <?php echo htmlspecialchars($user_name); ?>!</title>    <link rel="stylesheet" href="style.css">
+    <title>Hello, <?php echo ($user_name); ?>!</title>    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="homepage-container">
         <header class="homepage-header">
-            <h1>Welcome, <?php echo htmlspecialchars($user_name); ?>!</h1>
+            <h1>Welcome, <?php echo ($user_name); ?>!</h1>
             <div> <!-- Wrapper for links -->
                 <a href="playlistpage.php">My Playlists</a>
                 <a href="logout.php">Logout</a>
@@ -235,28 +235,28 @@ $conn->close();
 
         <div class="search-container main-search">
             <form action="homepage.php" method="GET">
-                <input type="text" name="search_query" placeholder="Search songs, albums, artists..." value="<?php echo htmlspecialchars($search_query ?? ''); ?>">
+                <input type="text" name="search_query" placeholder="Search songs, albums, artists..." value="<?php echo ($search_query ?? ''); ?>">
                 <button type="submit">Search</button>
             </form>
         </div>
 
         <?php if (!empty($search_query) && (empty($search_results_songs) && empty($search_results_albums) && empty($search_results_artists))): ?>
-            <p class="info-message">No results found for "<?php echo htmlspecialchars($search_query); ?>". <a href="homepage.php">Clear Search</a></p>
+            <p class="info-message">No results found for "<?php echo ($search_query); ?>". <a href="homepage.php">Clear Search</a></p>
         <?php endif; ?>
 
         <?php if (!empty($search_results_songs) || !empty($search_results_albums) || !empty($search_results_artists)): ?>
             <div class="search-results-container content-section">
-                <h2>Search Results for "<?php echo htmlspecialchars($search_query); ?>"</h2>
+                <h2>Search Results for "<?php echo ($search_query); ?>"</h2>
                 <?php if (!empty($search_results_songs)): ?>
                     <h3>Songs</h3>
                     <ul class="song-list">
                         <?php foreach ($search_results_songs as $song): ?>
                             <li class="song-item">
                                 <a href="currentmusic.php?song_id=<?php echo $song['song_id']; ?>">
-                                    <img src="<?php echo htmlspecialchars($song['image'] ?? 'default_song.png'); ?>" alt="<?php echo htmlspecialchars($song['title']); ?>">
+                                    <img src="<?php echo ($song['image'] ?? 'default_song.png'); ?>" alt="<?php echo ($song['title']); ?>">
                                     <div class="song-info">
-                                        <h4><?php echo htmlspecialchars($song['title']); ?></h4>
-                                        <p><?php echo htmlspecialchars($song['artist_name'] ?? 'Unknown Artist'); ?> - <?php echo htmlspecialchars($song['album_name'] ?? 'Unknown Album'); ?></p>
+                                        <h4><?php echo ($song['title']); ?></h4>
+                                        <p><?php echo ($song['artist_name'] ?? 'Unknown Artist'); ?> - <?php echo ($song['album_name'] ?? 'Unknown Album'); ?></p>
                                     </div>
                                 </a>
                             </li>
@@ -269,10 +269,10 @@ $conn->close();
                         <?php foreach ($search_results_albums as $album): ?>
                             <div class="grid-item album-item">
                                 <a href="albumpage.php?album_id=<?php echo $album['album_id']; ?>">
-                                    <img src="<?php echo htmlspecialchars($album['image'] ?? 'default_album.png'); ?>" alt="<?php echo htmlspecialchars($album['name']); ?>">
+                                    <img src="<?php echo ($album['image'] ?? 'default_album.png'); ?>" alt="<?php echo ($album['name']); ?>">
                                     <div class="info">
-                                        <h4><?php echo htmlspecialchars($album['name']); ?></h4>
-                                        <p><?php echo htmlspecialchars($album['artist_name'] ?? 'Unknown Artist'); ?></p>
+                                        <h4><?php echo ($album['name']); ?></h4>
+                                        <p><?php echo ($album['artist_name'] ?? 'Unknown Artist'); ?></p>
                                     </div>
                                 </a>
                             </div>
@@ -285,9 +285,9 @@ $conn->close();
                         <?php foreach ($search_results_artists as $artist): ?>
                             <div class="grid-item artist-item">
                                 <a href="artistpage.php?artist_id=<?php echo $artist['artist_id']; ?>">
-                                    <img src="<?php echo htmlspecialchars($artist['image'] ?? 'default_artist.png'); ?>" alt="<?php echo htmlspecialchars($artist['name']); ?>">
+                                    <img src="<?php echo ($artist['image'] ?? 'default_artist.png'); ?>" alt="<?php echo ($artist['name']); ?>">
                                     <div class="info">
-                                        <h4><?php echo htmlspecialchars($artist['name']); ?></h4>
+                                        <h4><?php echo ($artist['name']); ?></h4>
                                     </div>
                                 </a>
                             </div>
@@ -330,11 +330,11 @@ $conn->close();
                             <div class="grid-container playlist-grid">                                <?php foreach ($user_playlists as $playlist): ?>
                                 <div class="grid-item playlist-item">
                                     <a href="playlistpage.php?playlist_id=<?php echo $playlist['playlist_id']; ?>">
-                                        <img src="<?php echo htmlspecialchars($playlist['image'] ?? 'default_playlist.png'); ?>" alt="<?php echo htmlspecialchars($playlist['title']); ?>">
+                                        <img src="<?php echo ($playlist['image'] ?? 'default_playlist.png'); ?>" alt="<?php echo ($playlist['title']); ?>">
                                         <div class="info">
-                                            <h3><?php echo htmlspecialchars($playlist['title']); ?></h3>
+                                            <h3><?php echo ($playlist['title']); ?></h3>
                                             <?php if (!empty($playlist['description'])): ?>
-                                                <p><?php echo htmlspecialchars($playlist['description']); ?></p>
+                                                <p><?php echo ($playlist['description']); ?></p>
                                             <?php endif; ?>
                                         </div>
                                     </a>
@@ -361,10 +361,10 @@ $conn->close();
                                 <?php foreach ($last_played_songs as $song): ?>
                                 <li class="song-item">
                                     <a href="currentmusic.php?song_id=<?php echo $song['song_id']; ?>">
-                                        <img src="<?php echo htmlspecialchars($song['image'] ?? 'default_song.png'); ?>" alt="<?php echo htmlspecialchars($song['title']); ?>">
+                                        <img src="<?php echo ($song['image'] ?? 'default_song.png'); ?>" alt="<?php echo ($song['title']); ?>">
                                         <div class="song-info">
-                                            <h4><?php echo htmlspecialchars($song['title']); ?></h4>
-                                            <p><?php echo htmlspecialchars($song['artist_name'] ?? 'Unknown Artist'); ?></p>
+                                            <h4><?php echo ($song['title']); ?></h4>
+                                            <p><?php echo ($song['artist_name'] ?? 'Unknown Artist'); ?></p>
                                             <p class="playtime"><?php echo date('d M Y, H:i', strtotime($song['playtime'])); ?></p>
                                         </div>
                                     </a>
@@ -389,9 +389,9 @@ $conn->close();
                                 <?php foreach ($top_artists as $artist): ?>
                                 <div class="grid-item artist-item">
                                     <a href="artistpage.php?artist_id=<?php echo $artist['artist_id']; ?>">
-                                        <img src="<?php echo htmlspecialchars($artist['image'] ?? 'default_artist.png'); ?>" alt="<?php echo htmlspecialchars($artist['name']); ?>">
+                                        <img src="<?php echo ($artist['image'] ?? 'default_artist.png'); ?>" alt="<?php echo ($artist['name']); ?>">
                                         <div class="info">
-                                            <h3><?php echo htmlspecialchars($artist['name']); ?></h3>
+                                            <h3><?php echo ($artist['name']); ?></h3>
                                             <p>Listeners: <?php echo number_format($artist['listeners']); ?></p>
                                         </div>
                                     </a>

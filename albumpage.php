@@ -77,22 +77,22 @@ $conn->close();
 <html lang="en">
 <head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Album: <?php echo htmlspecialchars($album_title); ?></title>
+    <title>Album: <?php echo ($album_title); ?></title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Album: <?php echo htmlspecialchars($album_title); ?></h1>
-        <p><a href="homepage.php">Back to Homepage</a> | <a href="artistpage.php?artist_id=<?php echo htmlspecialchars($artist_id_for_link); ?>">Back to Artist</a></p>
+        <h1>Album: <?php echo ($album_title); ?></h1>
+        <p><a href="homepage.php">Back to Homepage</a> | <a href="artistpage.php?artist_id=<?php echo ($artist_id_for_link); ?>">Back to Artist</a></p>
 
         <?php if ($message): ?>
-            <p class="<?php echo $message_type; ?>-message"><?php echo htmlspecialchars($message); ?></p>
+            <p class="<?php echo $message_type; ?>-message"><?php echo ($message); ?></p>
         <?php endif; ?>
 
         <?php if ($album_data): ?>            <div class="album-container">
-                <img src="<?php echo htmlspecialchars($album_image); ?>" alt="Album Cover" class="album-cover">
-                <h3>Artist: <a href="artistpage.php?artist_id=<?php echo htmlspecialchars($artist_id_for_link); ?>"><?php echo htmlspecialchars($artist_name); ?></a></h3>
-                <p>Release Date: <?php echo htmlspecialchars($release_date); ?></p>
+                <img src="<?php echo ($album_image); ?>" alt="Album Cover" class="album-cover">
+                <h3>Artist: <a href="artistpage.php?artist_id=<?php echo ($artist_id_for_link); ?>"><?php echo ($artist_name); ?></a></h3>
+                <p>Release Date: <?php echo ($release_date); ?></p>
             </div>
 
             <h2>Songs in Album</h2>
@@ -100,12 +100,12 @@ $conn->close();
                 <div class="song-list">
                     <?php foreach ($album_songs as $song): ?>
                         <div class="song-list-item">
-                            <div class="song-info">                                <img src="<?php echo htmlspecialchars($song['image']); ?>" alt="Song Image" class="song-thumbnail">
-                                <h4><a href="currentmusic.php?song_id=<?php echo htmlspecialchars($song['song_id']); ?>"><?php echo htmlspecialchars($song['title']); ?></a></h4>
-                                <p>Genre: <?php echo htmlspecialchars($song['genre']); ?> | Duration: <?php echo gmdate("i:s", $song['duration']); ?></p>
+                            <div class="song-info">                                <img src="<?php echo ($song['image']); ?>" alt="Song Image" class="song-thumbnail">
+                                <h4><a href="currentmusic.php?song_id=<?php echo ($song['song_id']); ?>"><?php echo ($song['title']); ?></a></h4>
+                                <p>Genre: <?php echo ($song['genre']); ?> | Duration: <?php echo gmdate("i:s", $song['duration']); ?></p>
                             </div>
                             <div class="song-actions">                                <form action="currentmusic.php" method="get" class="inline-form">
-                                    <input type="hidden" name="song_id" value="<?php echo htmlspecialchars($song['song_id']); ?>">
+                                    <input type="hidden" name="song_id" value="<?php echo ($song['song_id']); ?>">
                                     <button type="submit">Play</button>
                                 </form>
                             </div>

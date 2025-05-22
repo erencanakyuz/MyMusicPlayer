@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_add_to_playlis
             $stmt_add_song = $conn->prepare("INSERT INTO PLAYLIST_SONGS (playlist_id, song_id, date_added) VALUES (?, ?, NOW())");
             $stmt_add_song->bind_param("ii", $playlist_id_to_add_to, $song_id_to_add);
             if ($stmt_add_song->execute()) {
-                $message = "Successfully added to playlist '" . htmlspecialchars($target_playlist_name) . "'!";
+                $message = "Successfully added to playlist '" . ($target_playlist_name) . "'!";
                 $message_type = 'success';
             } else {
                 $message = "Error adding song: " . $conn->error;
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_add_to_playlis
             }
             $stmt_add_song->close();
         } else {
-            $message = "This song is already in the playlist '" . htmlspecialchars($target_playlist_name) . "'.";
+            $message = "This song is already in the playlist '" . ($target_playlist_name) . "'.";
             $message_type = 'error';
         }
         $stmt_check_exists->close();
@@ -110,7 +110,7 @@ if ($result_song->num_rows > 0) {
     $insert_history_stmt = $conn->prepare("INSERT INTO PLAY_HISTORY (user_id, song_id, playtime) VALUES (?, ?, NOW())");
     $insert_history_stmt->bind_param("ii", $user_id, $song_id);
     if ($insert_history_stmt->execute()) {
-        $message = "Now playing: " . htmlspecialchars($current_song['title']) . ". Play history updated.";
+        $message = "Now playing: " . ($current_song['title']) . ". Play history updated.";
         $message_type = 'success';
     } else {
         $message = "Error updating play history: " . $conn->error;
@@ -132,7 +132,7 @@ $conn->close();
 <html lang="en">
 <head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Now Playing: <?php echo $current_song ? htmlspecialchars($current_song['title']) : 'Song Not Found'; ?></title>
+    <title>Now Playing: <?php echo $current_song ? ($current_song['title']) : 'Song Not Found'; ?></title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -141,21 +141,21 @@ $conn->close();
         <p><a href="homepage.php">Back to Homepage</a></p>
 
         <?php if ($message): ?>
-            <p class="<?php echo $message_type; ?>-message"><?php echo htmlspecialchars($message); ?></p>
+            <p class="<?php echo $message_type; ?>-message"><?php echo ($message); ?></p>
         <?php endif; ?>
 
         <?php if ($current_song): ?>            <div class="now-playing-container">
-                <img src="<?php echo htmlspecialchars($current_song['image']); ?>" alt="Song/Album Art" class="song-album-art">
-                <h2><?php echo htmlspecialchars($current_song['title']); ?></h2>
-                <p><strong>Artist:</strong> <?php echo htmlspecialchars($current_song['artist_name']); ?></p>
-                <p><strong>Album:</strong> <?php echo htmlspecialchars($current_song['album_name']); ?></p>
-                <p><strong>Genre:</strong> <?php echo htmlspecialchars($current_song['genre']); ?></p>
+                <img src="<?php echo ($current_song['image']); ?>" alt="Song/Album Art" class="song-album-art">
+                <h2><?php echo ($current_song['title']); ?></h2>
+                <p><strong>Artist:</strong> <?php echo ($current_song['artist_name']); ?></p>
+                <p><strong>Album:</strong> <?php echo ($current_song['album_name']); ?></p>
+                <p><strong>Genre:</strong> <?php echo ($current_song['genre']); ?></p>
                 <p><strong>Duration:</strong> <?php echo gmdate("i:s", $current_song['duration']); ?></p>
-                <p><strong>Release Date:</strong> <?php echo htmlspecialchars($current_song['release_date']); ?></p>
+                <p><strong>Release Date:</strong> <?php echo ($current_song['release_date']); ?></p>
 
                 <?php if ($action === 'add_to_playlist' && $target_playlist_id && $current_song): ?>                    <div class="add-to-playlist-action add-playlist-section">
                         <h3>Add to Playlist</h3>
-                        <p>Add "<?php echo htmlspecialchars($current_song['title']); ?>" to "<?php echo htmlspecialchars($target_playlist_name); ?>"?</p>
+                        <p>Add "<?php echo ($current_song['title']); ?>" to "<?php echo ($target_playlist_name); ?>"?</p>
                         <form action="currentmusic.php?song_id=<?php echo $song_id; ?>" method="post">
                             <input type="hidden" name="song_id_to_add" value="<?php echo $song_id; ?>">
                             <input type="hidden" name="playlist_id_to_add_to" value="<?php echo $target_playlist_id; ?>">

@@ -79,7 +79,7 @@ Here's a breakdown based on the PDF sections:
 *   **Login Page (`login.php`, `login.html` - assuming `login.php` serves the HTML too):**
     *   User authentication with username and password: `login.php` has form fields and PHP logic for authentication against the `USERS` table. **(OK)**
     *   Session started, user redirected to homepage: `login.php` uses `session_start()`, sets `$_SESSION['user_id']` and `$_SESSION['user_name']`, then `header("Location: homepage.php");`. **(OK)**
-    *   Page title "Hello, Name!": `homepage.php` has `<title>Welcome, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</title>`. **(OK)**
+    *   Page title "Hello, Name!": `homepage.php` has `<title>Welcome, <?php echo ($_SESSION['user_name']); ?>!</title>`. **(OK)**
 
 *   **After Authentication (`homepage.php`):**
     *   **Left Side: Playlists with images:**
@@ -106,7 +106,7 @@ Here's a breakdown based on the PDF sections:
 
 *   **Playlist Page (`playlistpage.php`):**
     *   All songs in selected playlist displayed: Yes, the main query (lines 88-98) fetches songs for the given `$playlist_id`. **(OK)**
-    *   Country information of each song's artist displayed next to the song: Yes, `Artist: <?php echo htmlspecialchars($song['artist_name']); ?> (<?php echo htmlspecialchars($song['artist_country']); ?>)`. **(OK)**
+    *   Country information of each song's artist displayed next to the song: Yes, `Artist: <?php echo ($song['artist_name']); ?> (<?php echo ($song['artist_country']); ?>)`. **(OK)**
     *   **Add New Song to Playlist:**
         *   Search bar at top: Yes, lines 125-129. **(OK)**
         *   **DISCREPANCY:** PDF: "If the song exists in the database, its page should be displayed along with an add button. When the user clicks the add button, the relevant parts of the application should be updated accordingly."
@@ -373,7 +373,7 @@ This section requires checking the implementation details within your PHP files.
     *   **Action Needed**: The implementation in homepage.php needs to be completed/verified against all these detailed requirements.
 *   **Playlist Page (playlistpage.php)**:
     *   Display songs in playlist: The provided code snippet shows this is being implemented.
-    *   Artist's country next to song: The snippet `htmlspecialchars($song['artist_country'])` shows intent. The SQL query in the playlistpage.php attachment is incomplete (starts with `FROM` instead of `SELECT ... FROM`). **Action Needed**: Ensure the actual SQL query in playlistpage.php correctly fetches `C.country_name as artist_country`.
+    *   Artist's country next to song: The snippet `($song['artist_country'])` shows intent. The SQL query in the playlistpage.php attachment is incomplete (starts with `FROM` instead of `SELECT ... FROM`). **Action Needed**: Ensure the actual SQL query in playlistpage.php correctly fetches `C.country_name as artist_country`.
     *   Add new song: Search bar at top; if song exists, its page displayed with "add" button; add updates playlist. The current playlistpage.php has an empty form and POST handling block, indicating this is planned. **Action Needed**: Complete this functionality.
 *   **Currently Playing Music Page (currentmusic.php)**:
     *   PDF Requirement: Design a display area for played music information.

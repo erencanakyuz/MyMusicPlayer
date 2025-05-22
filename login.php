@@ -80,7 +80,7 @@ $conn->close();
             <?php
             // Display error message if present
             if (!empty($error_message)) {
-                echo '<p class="error-message">' . htmlspecialchars($error_message) . '</p>';
+                echo '<p class="error-message">' . ($error_message) . '</p>';
             }
             ?>
         </form>

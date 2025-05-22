@@ -93,7 +93,7 @@ $conn->close();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Artist: <?php echo $artist_data ? htmlspecialchars($artist_data['name']) : 'Artist Not Found'; ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Artist: <?php echo $artist_data ? ($artist_data['name']) : 'Artist Not Found'; ?></title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -102,19 +102,19 @@ $conn->close();
         <p><a href="homepage.php">Back to Homepage</a></p>
 
         <?php if ($message): ?>
-            <p class="<?php echo $message_type; ?>-message"><?php echo htmlspecialchars($message); ?></p>
+            <p class="<?php echo $message_type; ?>-message"><?php echo ($message); ?></p>
         <?php endif; ?>
 
         <?php if ($artist_data): ?>
             <div class="artist-header">
-                <img src="<?php echo htmlspecialchars($artist_data['image']); ?>" alt="<?php echo htmlspecialchars($artist_data['name']); ?>">
+                <img src="<?php echo ($artist_data['image']); ?>" alt="<?php echo ($artist_data['name']); ?>">
                 <div class="artist-details">
-                    <h2><?php echo htmlspecialchars($artist_data['name']); ?></h2>
-                    <p><strong>Genre:</strong> <?php echo htmlspecialchars($artist_data['genre']); ?></p>
+                    <h2><?php echo ($artist_data['name']); ?></h2>
+                    <p><strong>Genre:</strong> <?php echo ($artist_data['genre']); ?></p>
                     <p><strong>Listeners:</strong> <?php echo number_format($artist_data['listeners']); ?></p>
-                    <p><strong>Total Music:</strong> <?php echo htmlspecialchars($artist_data['total_num_music']); ?></p>
-                    <p><strong>Total Albums:</strong> <?php echo htmlspecialchars($artist_data['total_albums']); ?></p>
-                    <p><strong>Joined:</strong> <?php echo htmlspecialchars($artist_data['date_joined']); ?></p>                    <p><strong>Bio:</strong> <?php echo htmlspecialchars($artist_data['bio']); ?></p>
+                    <p><strong>Total Music:</strong> <?php echo ($artist_data['total_num_music']); ?></p>
+                    <p><strong>Total Albums:</strong> <?php echo ($artist_data['total_albums']); ?></p>
+                    <p><strong>Joined:</strong> <?php echo ($artist_data['date_joined']); ?></p>                    <p><strong>Bio:</strong> <?php echo ($artist_data['bio']); ?></p>
                     <form action="artistpage.php?artist_id=<?php echo $artist_id; ?>" method="post" class="inline-form">
                         <button type="submit" name="follow_artist">Follow Artist</button>
                     </form>
@@ -127,10 +127,10 @@ $conn->close();
                     <?php if (!empty($artist_albums)): ?>
                         <?php foreach ($artist_albums as $album): ?>
                             <div class="album-item">
-                                <img src="<?php echo htmlspecialchars($album['image']); ?>" alt="Album Image">
+                                <img src="<?php echo ($album['image']); ?>" alt="Album Image">
                                 <div class="album-info">
-                                    <h4><a href="albumpage.php?album_id=<?php echo htmlspecialchars($album['album_id']); ?>"><?php echo htmlspecialchars($album['name']); ?></a></h4>
-                                    <p>Release Date: <?php echo htmlspecialchars($album['release_date']); ?></p>
+                                    <h4><a href="albumpage.php?album_id=<?php echo ($album['album_id']); ?>"><?php echo ($album['name']); ?></a></h4>
+                                    <p>Release Date: <?php echo ($album['release_date']); ?></p>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -144,9 +144,9 @@ $conn->close();
                     <?php if (!empty($artist_top_songs)): ?>
                         <?php foreach ($artist_top_songs as $song): ?>
                             <div class="top-song-item">
-                                <img src="<?php echo htmlspecialchars($song['image']); ?>" alt="Song Image">
+                                <img src="<?php echo ($song['image']); ?>" alt="Song Image">
                                 <div class="top-song-info">
-                                    <h4><a href="currentmusic.php?song_id=<?php echo htmlspecialchars($song['song_id']); ?>"><?php echo htmlspecialchars($song['title']); ?></a></h4>
+                                    <h4><a href="currentmusic.php?song_id=<?php echo ($song['song_id']); ?>"><?php echo ($song['title']); ?></a></h4>
                                     <p>Duration: <?php echo gmdate("i:s", $song['duration']); ?></p>
                                 </div>
                             </div>

@@ -19,6 +19,6 @@ if ($conn->connect_error) {
 
 // Function to safely sanitize input (basic, for demonstration)
 function sanitize_input($conn, $data) {
-    return mysqli_real_escape_string($conn, htmlspecialchars(strip_tags($data)));
+    return mysqli_real_escape_string($conn, (strip_tags($data)));
 }
 ?>

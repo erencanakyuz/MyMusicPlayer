@@ -133,7 +133,7 @@ $conn->close();
         <p><a href="homepage.php">Back to Homepage</a></p>
 
         <?php if ($message): ?>
-            <p class="<?php echo $message_type; ?>-message"><?php echo htmlspecialchars($message); ?></p>
+            <p class="<?php echo $message_type; ?>-message"><?php echo ($message); ?></p>
         <?php endif; ?>
 
         <div class="section sql-input-section">
@@ -153,7 +153,7 @@ $conn->close();
                     <thead>
                         <tr>
                             <?php foreach (array_keys($custom_query_results[0]) as $col_name): ?>
-                                <th><?php echo htmlspecialchars($col_name); ?></th>
+                                <th><?php echo ($col_name); ?></th>
                             <?php endforeach; ?>
                         </tr>
                     </thead>
@@ -161,7 +161,7 @@ $conn->close();
                         <?php foreach ($custom_query_results as $row): ?>
                             <tr>
                                 <?php foreach ($row as $value): ?>
-                                    <td><?php echo htmlspecialchars($value); ?></td>
+                                    <td><?php echo ($value); ?></td>
                                 <?php endforeach; ?>
                             </tr>
                         <?php endforeach; ?>
@@ -180,7 +180,7 @@ $conn->close();
                     <?php if (!empty($predefined_results['top_genres'])): ?>
                         <ul>
                             <?php foreach ($predefined_results['top_genres'] as $row): ?>
-                                <li><?php echo htmlspecialchars($row['genre']); ?> (<?php echo htmlspecialchars($row['user_count']); ?> users)</li>
+                                <li><?php echo ($row['genre']); ?> (<?php echo ($row['user_count']); ?> users)</li>
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
@@ -193,8 +193,8 @@ $conn->close();
                     <?php if (!empty($predefined_results['top_songs_overall'])): ?>
                         <ul>
                             <?php foreach ($predefined_results['top_songs_overall'] as $row): ?>
-                                <li>                                    <img src="<?php echo htmlspecialchars($row['image']); ?>" class="thumbnail-image">
-                                    <?php echo htmlspecialchars($row['title']); ?> by <?php echo htmlspecialchars($row['artist_name']); ?>(<?php echo htmlspecialchars($row['play_count']); ?> plays)
+                                <li>                                    <img src="<?php echo ($row['image']); ?>" class="thumbnail-image">
+                                    <?php echo ($row['title']); ?> by <?php echo ($row['artist_name']); ?>(<?php echo ($row['play_count']); ?> plays)
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -208,7 +208,7 @@ $conn->close();
                     <?php if (!empty($predefined_results['users_per_country'])): ?>
                         <ul>
                             <?php foreach ($predefined_results['users_per_country'] as $row): ?>
-                                <li><?php echo htmlspecialchars($row['country_name']); ?> (<?php echo htmlspecialchars($row['user_count']); ?> users)</li>
+                                <li><?php echo ($row['country_name']); ?> (<?php echo ($row['user_count']); ?> users)</li>
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
@@ -221,8 +221,8 @@ $conn->close();
                     <?php if (!empty($predefined_results['artists_most_albums'])): ?>
                         <ul>
                             <?php foreach ($predefined_results['artists_most_albums'] as $row): ?>
-                                <li>                                    <img src="<?php echo htmlspecialchars($row['image']); ?>" class="thumbnail-image">
-                                    <?php echo htmlspecialchars($row['artist_name']); ?> (<?php echo htmlspecialchars($row['album_count']); ?> albums)
+                                <li>                                    <img src="<?php echo ($row['image']); ?>" class="thumbnail-image">
+                                    <?php echo ($row['artist_name']); ?> (<?php echo ($row['album_count']); ?> albums)
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -237,7 +237,7 @@ $conn->close();
                         <ul>
                             <?php foreach ($predefined_results['longest_songs'] as $row): ?>
                                 <li>
-                                    <?php echo htmlspecialchars($row['title']); ?> by <?php echo htmlspecialchars($row['artist_name']); ?> (<?php echo gmdate("i:s", $row['duration']); ?>)
+                                    <?php echo ($row['title']); ?> by <?php echo ($row['artist_name']); ?> (<?php echo gmdate("i:s", $row['duration']); ?>)
                                 </li>
                             <?php endforeach; ?>
                         </ul>
