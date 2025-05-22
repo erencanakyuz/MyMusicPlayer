@@ -3,7 +3,7 @@
 // Student Name: [Your Name]
 // Student ID: [Your Student ID]
 // Description: Script to create the database, tables, and populate them with initial data.
-// After execution, redirects to login.html.
+// After execution, redirects to login.php.
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -187,6 +187,6 @@ echo "Database initialization complete! Redirecting to login page...";
 $conn->close();
 
 // Redirect to login page
-header("Location: login.html");
+header("Location: login.php");
 exit();
 ?>

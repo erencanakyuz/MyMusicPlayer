@@ -21,7 +21,9 @@ body {
     border-radius: 8px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     color: #0056b3;
     text-align: center;
 }
@@ -49,7 +51,8 @@ form input[type="date"],
 form input[type="time"],
 form textarea,
 form select {
-    width: calc(100% - 22px); /* Account for padding and border */
+    width: calc(100% - 22px);
+    /* Account for padding and border */
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -81,7 +84,8 @@ table {
     margin-top: 20px;
 }
 
-table th, table td {
+table th,
+table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -122,7 +126,8 @@ a:hover {
 }
 
 .left-panel {
-    flex: 1; /* Takes 1 part of available space */
+    flex: 1;
+    /* Takes 1 part of available space */
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 8px;
@@ -130,7 +135,8 @@ a:hover {
 }
 
 .right-panel {
-    flex: 2; /* Takes 2 parts of available space */
+    flex: 2;
+    /* Takes 2 parts of available space */
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -143,7 +149,9 @@ a:hover {
     border: 1px solid #eee;
 }
 
-.playlist-item, .song-item, .artist-item {
+.playlist-item,
+.song-item,
+.artist-item {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
@@ -153,7 +161,9 @@ a:hover {
     background-color: #fff;
 }
 
-.playlist-item img, .song-item img, .artist-item img {
+.playlist-item img,
+.song-item img,
+.artist-item img {
     width: 60px;
     height: 60px;
     object-fit: cover;
@@ -181,10 +191,12 @@ a:hover {
     margin-bottom: 15px;
     gap: 10px;
 }
+
 .search-bar-container input[type="text"] {
     flex-grow: 1;
     margin-bottom: 0;
 }
+
 .search-bar-container button {
     margin-bottom: 0;
 }
@@ -205,7 +217,8 @@ a:hover {
     font-size: 14px;
 }
 
-.playlist-add-form, .add-song-form {
+.playlist-add-form,
+.add-song-form {
     margin-top: 20px;
     padding: 15px;
     background-color: #e9f7fe;
@@ -322,14 +335,16 @@ a:hover {
     gap: 20px;
 }
 
-.artist-albums, .artist-top-songs {
+.artist-albums,
+.artist-top-songs {
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 8px;
     border: 1px solid #eee;
 }
 
-.album-item, .top-song-item {
+.album-item,
+.top-song-item {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
@@ -347,16 +362,19 @@ a:hover {
     border-radius: 4px;
 }
 
-.album-info, .top-song-info {
+.album-info,
+.top-song-info {
     flex-grow: 1;
 }
 
-.album-info h4, .top-song-info h4 {
+.album-info h4,
+.top-song-info h4 {
     margin: 0 0 5px 0;
     color: #333;
 }
 
-.album-info p, .top-song-info p {
+.album-info p,
+.top-song-info p {
     margin: 0;
     color: #666;
     font-size: 0.9em;

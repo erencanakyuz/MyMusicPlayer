@@ -17,7 +17,7 @@ albumpage.php'nin Detaylı Açıklaması:
 albumpage.php dosyası, artistpage.php'den bir albüme tıklandığında açılacak şekilde tasarlanmıştır. Amacı, o albümdeki tüm şarkıları listelemek ve albümlere şarkı eklenemez kısıtlamasına uymaktır.
 session_start(); ve Kimlik Doğrulama:
 En başta session_start() çağrılır.
-Kullanıcının $_SESSION['user_id'] değişkeni ile oturum açmış olup olmadığı kontrol edilir. Oturum açmamışsa login.html'e yönlendirilir. Bu, uygulamanın genel güvenlik prensibidir.
+Kullanıcının $_SESSION['user_id'] değişkeni ile oturum açmış olup olmadığı kontrol edilir. Oturum açmamışsa login.php'e yönlendirilir. Bu, uygulamanın genel güvenlik prensibidir.
 config.php Dahil Etme:
 Veritabanı bağlantı bilgilerini içeren config.php dosyası require_once ile dahil edilir. Bu, tüm PHP dosyalarının aynı veritabanı bağlantısını ve yardımcı fonksiyonları (örn. sanitize_input) kullanmasını sağlar.
 album_id Parametresini Alma:
