@@ -2,6 +2,8 @@
 // albumpage.php
 // Student Name: Eren Can Akyüz
  // Student ID: 20220702128
+
+ //NOTES:
 // Description: Displays all songs in a selected album.
 // Adding new songs to an album is NOT allowed here.
 

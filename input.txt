@@ -1,13 +1,13 @@
 -- Names
-Senem
-Ayşen
-Eda
-Bahar
-Ömer
-Emre
+Safa
+Emir
+Bilge
+Ata
+Resul
+Emircan
 Zeynep
 Can
-Deniz
+Okan
 Mert
 Elif
 Burak
@@ -23,9 +23,9 @@ Vildan
 Yasin
 Yağmur
 Koray
-Ceren
+Salih
 Doruk
-Irem
+Arina
 Kaan
 Lale
 Murat
@@ -38,42 +38,42 @@ Tuba
 Utku
 Volkan
 Yeliz
-Zeki
+Ebru
 
 -- Genres
 Pop
 Rock
-Electronic
-Hip Hop
+Turkish Folk
+Gangsta Rap
 Jazz
-Classical
-R&B
+Barok 
+Turkish Rock
 Country
 Folk
 Blues
-Metal
+Black Metal
 Indie
 Alternative
-Dance
+Turkish Psychedelic
 Reggae
 
 -- Countries (for artists and users)
 Türkiye
-USA
-UK
-Canada
-Germany
-France
-Japan
+Japonya
 South Korea
+Malaysia
+Philippines
+Thailand
+Vietnam
+Singapore
 Australia
-Brazil
+Pakistan
 India
-Spain
-Italy
-Mexico
-Sweden
-Norway
+Bangladesh
+Kazakhstan
+Uzbekistan
+Nepal
+Palestine
 Argentina
 Egypt
 China

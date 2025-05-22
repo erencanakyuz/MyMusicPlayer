@@ -16,7 +16,7 @@ $password = "mysql";
 
 $dbname = "ErenCan_Akyuz_musicplayer"; 
 
-// Create connection without selecting a database first
+// Create connection
 $conn = new mysqli($servername, $username, $password);
 
 // Check connection
@@ -29,7 +29,7 @@ echo "Attempting to create database '{$dbname}' and tables...<br>";
 // Drop database if it exists (for fresh installation on repeated runs)
 $sql_drop_db = "DROP DATABASE IF EXISTS `{$dbname}`";
 if ($conn->query($sql_drop_db) === TRUE) {
-    echo "Existing database `{$dbname}` dropped successfully (if it existed).<br>";
+    echo "Existing database `{$dbname}` dropped successfully.<br>";
 } else {
     echo "Error dropping database: " . $conn->error . "<br>";
 }
@@ -182,7 +182,7 @@ if ($conn->multi_query($sql_content)) {
     die("Error importing data: " . $conn->error);
 }
 
-echo "Database initialization complete! Redirecting to login page...";
+echo "Database initialization complete, Redirecting to login page...";
 
 $conn->close();
 
