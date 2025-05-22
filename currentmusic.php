@@ -144,9 +144,8 @@ $conn->close();
             <p class="<?php echo $message_type; ?>-message"><?php echo htmlspecialchars($message); ?></p>
         <?php endif; ?>
 
-        <?php if ($current_song): ?>
-            <div style="text-align: center; margin-top: 30px;">
-                <img src="<?php echo htmlspecialchars($current_song['image']); ?>" alt="Song/Album Art" style="width: 300px; height: 300px; object-fit: cover; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.2);">
+        <?php if ($current_song): ?>            <div class="now-playing-container">
+                <img src="<?php echo htmlspecialchars($current_song['image']); ?>" alt="Song/Album Art" class="song-album-art">
                 <h2><?php echo htmlspecialchars($current_song['title']); ?></h2>
                 <p><strong>Artist:</strong> <?php echo htmlspecialchars($current_song['artist_name']); ?></p>
                 <p><strong>Album:</strong> <?php echo htmlspecialchars($current_song['album_name']); ?></p>
@@ -154,8 +153,7 @@ $conn->close();
                 <p><strong>Duration:</strong> <?php echo gmdate("i:s", $current_song['duration']); ?></p>
                 <p><strong>Release Date:</strong> <?php echo htmlspecialchars($current_song['release_date']); ?></p>
 
-                <?php if ($action === 'add_to_playlist' && $target_playlist_id && $current_song): ?>
-                    <div class="add-to-playlist-action" style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; background-color: #f9f9f9;">
+                <?php if ($action === 'add_to_playlist' && $target_playlist_id && $current_song): ?>                    <div class="add-to-playlist-action add-playlist-section">
                         <h3>Add to Playlist</h3>
                         <p>Add "<?php echo htmlspecialchars($current_song['title']); ?>" to "<?php echo htmlspecialchars($target_playlist_name); ?>"?</p>
                         <form action="currentmusic.php?song_id=<?php echo $song_id; ?>" method="post">

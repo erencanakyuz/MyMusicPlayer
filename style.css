@@ -551,5 +551,100 @@ a:hover {
     font-size: 0.9em;
 }
 
+/* Homepage Specific Styles */
+#newPlaylistForm {
+    display: none;
+    /* Hidden by default */
+}
+
+.add-button {
+    font-size: 1.5em;
+    padding: 2px 10px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+}
+
+.playlist-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.playtime {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* Current Music Page Styles */
+.now-playing-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.song-album-art {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.add-playlist-section {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+/* Album Page Styles */
+.album-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.album-cover {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.song-thumbnail {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 10px;
+}
+
+/* Form Styles */
+.inline-form {
+    display: inline-block;
+}
+
+.borderless-form {
+    border: none;
+    padding: 0;
+}
+
+/* Login Page Styles */
+.login-container {
+    max-width: 400px;
+    margin-top: 50px;
+}
+
+/* General Styles */
+.error-text {
+    color: red;
+    font-weight: bold;
+}
+
+.thumbnail-image {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
 /* Comments for student ID and name */
 /* Student: Eren Can Akyüz, ID: 20070006024 */

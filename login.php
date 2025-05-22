@@ -67,7 +67,7 @@ $conn->close();
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" style="max-width: 400px; margin-top: 50px;">
+    <div class="container login-container">
         <h1>User Login</h1>
         <form action="login.php" method="post"> <!-- Form action points to itself -->
             <label for="username">Username:</label>

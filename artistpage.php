@@ -114,9 +114,8 @@ $conn->close();
                     <p><strong>Listeners:</strong> <?php echo number_format($artist_data['listeners']); ?></p>
                     <p><strong>Total Music:</strong> <?php echo htmlspecialchars($artist_data['total_num_music']); ?></p>
                     <p><strong>Total Albums:</strong> <?php echo htmlspecialchars($artist_data['total_albums']); ?></p>
-                    <p><strong>Joined:</strong> <?php echo htmlspecialchars($artist_data['date_joined']); ?></p>
-                    <p><strong>Bio:</strong> <?php echo htmlspecialchars($artist_data['bio']); ?></p>
-                    <form action="artistpage.php?artist_id=<?php echo $artist_id; ?>" method="post" style="display: inline-block;">
+                    <p><strong>Joined:</strong> <?php echo htmlspecialchars($artist_data['date_joined']); ?></p>                    <p><strong>Bio:</strong> <?php echo htmlspecialchars($artist_data['bio']); ?></p>
+                    <form action="artistpage.php?artist_id=<?php echo $artist_id; ?>" method="post" class="inline-form">
                         <button type="submit" name="follow_artist">Follow Artist</button>
                     </form>
                 </div>

@@ -221,33 +221,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello, <?php echo htmlspecialchars($user_name); ?>!</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Inline style for the new playlist form toggle */
-        #newPlaylistForm {
-            display: none; /* Hidden by default */
-        }
-        
-        .add-button {
-            font-size: 1.5em;
-            padding: 2px 10px;
-            border-radius: 50%;
-            background-color: #007bff;
-            color: white;
-        }
-        
-        .playlist-header {
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .playtime {
-            font-size: 0.8em;
-            color: #666;
-            margin-top: 4px;
-        }
-    </style>
+    <title>Hello, <?php echo htmlspecialchars($user_name); ?>!</title>    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="homepage-container">

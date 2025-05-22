@@ -138,7 +138,7 @@ $conn->close();
 
         <div class="section sql-input-section">
             <h2>Run Custom SQL Query</h2>
-            <p style="color: red; font-weight: bold;">
+            <p class="error-text">
                 WARNING: This feature is for demonstration purposes. Running arbitrary SQL queries can be a security risk (SQL Injection).
             </p>
             <form action="generalSQL.php" method="post">
@@ -193,9 +193,8 @@ $conn->close();
                     <?php if (!empty($predefined_results['top_songs_overall'])): ?>
                         <ul>
                             <?php foreach ($predefined_results['top_songs_overall'] as $row): ?>
-                                <li>
-                                    <img src="<?php echo htmlspecialchars($row['image']); ?>" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 5px;">
-                                    <?php echo htmlspecialchars($row['title']); ?> by <?php echo htmlspecialchars($row['artist_name']); ?> (<?php echo htmlspecialchars($row['play_count']); ?> plays)
+                                <li>                                    <img src="<?php echo htmlspecialchars($row['image']); ?>" class="thumbnail-image">
+                                    <?php echo htmlspecialchars($row['title']); ?> by <?php echo htmlspecialchars($row['artist_name']); ?>(<?php echo htmlspecialchars($row['play_count']); ?> plays)
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -222,8 +221,7 @@ $conn->close();
                     <?php if (!empty($predefined_results['artists_most_albums'])): ?>
                         <ul>
                             <?php foreach ($predefined_results['artists_most_albums'] as $row): ?>
-                                <li>
-                                    <img src="<?php echo htmlspecialchars($row['image']); ?>" style="width: 30px; height: 30px; vertical-align: middle; margin-right: 5px;">
+                                <li>                                    <img src="<?php echo htmlspecialchars($row['image']); ?>" class="thumbnail-image">
                                     <?php echo htmlspecialchars($row['artist_name']); ?> (<?php echo htmlspecialchars($row['album_count']); ?> albums)
                                 </li>
                             <?php endforeach; ?>

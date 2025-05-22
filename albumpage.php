@@ -87,9 +87,8 @@ $conn->close();
             <p class="<?php echo $message_type; ?>-message"><?php echo htmlspecialchars($message); ?></p>
         <?php endif; ?>
 
-        <?php if ($album_data): ?>
-            <div style="text-align: center; margin-bottom: 20px;">
-                <img src="<?php echo htmlspecialchars($album_image); ?>" alt="Album Cover" style="width: 250px; height: 250px; object-fit: cover; border-radius: 8px;">
+        <?php if ($album_data): ?>            <div class="album-container">
+                <img src="<?php echo htmlspecialchars($album_image); ?>" alt="Album Cover" class="album-cover">
                 <h3>Artist: <a href="artistpage.php?artist_id=<?php echo htmlspecialchars($artist_id_for_link); ?>"><?php echo htmlspecialchars($artist_name); ?></a></h3>
                 <p>Release Date: <?php echo htmlspecialchars($release_date); ?></p>
             </div>
@@ -99,13 +98,11 @@ $conn->close();
                 <div class="song-list">
                     <?php foreach ($album_songs as $song): ?>
                         <div class="song-list-item">
-                            <div class="song-info">
-                                <img src="<?php echo htmlspecialchars($song['image']); ?>" alt="Song Image" style="width: 50px; height: 50px; float: left; margin-right: 10px;">
+                            <div class="song-info">                                <img src="<?php echo htmlspecialchars($song['image']); ?>" alt="Song Image" class="song-thumbnail">
                                 <h4><a href="currentmusic.php?song_id=<?php echo htmlspecialchars($song['song_id']); ?>"><?php echo htmlspecialchars($song['title']); ?></a></h4>
                                 <p>Genre: <?php echo htmlspecialchars($song['genre']); ?> | Duration: <?php echo gmdate("i:s", $song['duration']); ?></p>
                             </div>
-                            <div class="song-actions">
-                                <form action="currentmusic.php" method="get" style="display: inline-block;">
+                            <div class="song-actions">                                <form action="currentmusic.php" method="get" class="inline-form">
                                     <input type="hidden" name="song_id" value="<?php echo htmlspecialchars($song['song_id']); ?>">
                                     <button type="submit">Play</button>
                                 </form>

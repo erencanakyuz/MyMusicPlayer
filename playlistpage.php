@@ -107,7 +107,7 @@ $conn->close();
 
         <div class="add-song-form">
             <h3>Add Song to this Playlist</h3>
-            <form action="playlistpage.php?playlist_id=<?php echo $playlist_id; ?>" method="post" style="border: none; padding: 0;">
+            <form action="playlistpage.php?playlist_id=<?php echo $playlist_id; ?>" method="post" class="borderless-form">
                 <label for="add_song_query">Search Song by Title:</label>
                 <input type="text" id="add_song_query" name="add_song_query" placeholder="e.g., 'Bohemian Rhapsody'" required>
                 <button type="submit">Add Song</button>
@@ -120,13 +120,13 @@ $conn->close();
                 <?php foreach ($playlist_songs as $song): ?>
                     <div class="song-list-item">
                         <div class="song-info">
-                            <img src="<?php echo htmlspecialchars($song['image']); ?>" alt="Song Image" style="width: 50px; height: 50px; float: left; margin-right: 10px;">
+                            <img src="<?php echo htmlspecialchars($song['image']); ?>" alt="Song Image" class="song-thumbnail">
                             <h4><a href="currentmusic.php?song_id=<?php echo htmlspecialchars($song['song_id']); ?>"><?php echo htmlspecialchars($song['title']); ?></a></h4>
                             <p>Artist: <?php echo htmlspecialchars($song['artist_name']); ?> (<?php echo htmlspecialchars($song['artist_country']); ?>)</p>
                             <p>Duration: <?php echo gmdate("i:s", $song['duration']); ?></p>
                         </div>
                         <div class="song-actions">
-                            <form action="currentmusic.php" method="get" style="display: inline-block;">
+                            <form action="currentmusic.php" method="get" class="inline-form">
                                 <input type="hidden" name="song_id" value="<?php echo htmlspecialchars($song['song_id']); ?>">
                                 <button type="submit">Play</button>
                             </form>
