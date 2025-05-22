@@ -147,7 +147,7 @@ $stmt_playlists->close();
 // 2. User's Last 10 Played Songs
 $last_played_songs = [];
 $stmt_history = $conn->prepare("
-    SELECT S.song_id, S.title, S.image, A.name AS artist_name
+    SELECT S.song_id, S.title, S.image, A.name AS artist_name, PH.playtime
     FROM PLAY_HISTORY PH
     JOIN SONGS S ON PH.song_id = S.song_id
     JOIN ALBUMS AL ON S.album_id = AL.album_id
@@ -240,12 +240,12 @@ $conn->close();
         .playlist-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
         }
         
-        .history-search, .artist-search {
-            margin-bottom: 15px;
+        .playtime {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -391,6 +391,7 @@ $conn->close();
                                         <div class="song-info">
                                             <h4><?php echo htmlspecialchars($song['title']); ?></h4>
                                             <p><?php echo htmlspecialchars($song['artist_name'] ?? 'Unknown Artist'); ?></p>
+                                            <p class="playtime"><?php echo date('d M Y, H:i', strtotime($song['playtime'])); ?></p>
                                         </div>
                                     </a>
                                 </li>
