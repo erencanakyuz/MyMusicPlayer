@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_song_query'])) {
     // If not, ensure $conn->real_escape_string or prepared statements are used consistently.
     // For this example, we'll assume sanitize_input is available as per the original snippet's context.
     // $song_search_query = sanitize_input($conn, $_POST['add_song_query']);
-    $song_search_query = $_POST['add_song_query']; // Directly using POST data, ensure sanitization if not done by a global function
+     $song_search_query = sanitize_input($conn, $_POST['add_song_query']); // Directly using POST data, ensure sanitization if not done by a global function
 
     // Search for the song
     $stmt_find_song = $conn->prepare("SELECT song_id, title FROM SONGS WHERE title LIKE ? LIMIT 1");

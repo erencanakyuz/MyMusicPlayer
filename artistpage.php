@@ -76,7 +76,7 @@ if ($artist_data) {
 // --- Fetch Artist's Top 5 Most Listened Songs (by rank) ---
 $artist_top_songs = [];
 if ($artist_data) {
-    $stmt_top_songs = $conn->prepare("SELECT song_id, title, duration, image FROM SONGS WHERE album_id IN (SELECT album_id FROM ALBUMS WHERE artist_id = ?) ORDER BY rank DESC LIMIT 5");
+    $stmt_top_songs = $conn->prepare("SELECT song_id, title, duration, image FROM SONGS WHERE album_id IN (SELECT album_id FROM ALBUMS WHERE artist_id = ?) ORDER BY `rank` DESC LIMIT 5");
     $stmt_top_songs->bind_param("i", $artist_id);
     $stmt_top_songs->execute();
     $result_top_songs = $stmt_top_songs->get_result();
