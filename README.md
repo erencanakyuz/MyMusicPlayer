@@ -54,7 +54,7 @@
         Germany
         USA
         Japan
-        Palastine
+        Palestine
         ...
         ```
     *Ensure each section has a sufficient number of unique entries.*
